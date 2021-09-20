@@ -2,19 +2,19 @@ const express = require('express');
 const router = express.Router();
 
 const stuffCtrl = require('../controllers/stuff');
-
-router.post('/', stuffCtrl.createThing);
+const auth = require('../controllers/middleware/auth');
+router.post('/', auth, stuffCtrl.createThing);
 
 // Modification
-router.put('/:id', stuffCtrl.modifyThing);
+router.put('/:id', auth, stuffCtrl.modifyThing);
 
 // Supression 
-router.delete('/:id', stuffCtrl.deleteThing);
+router.delete('/:id', auth, stuffCtrl.deleteThing);
 
 // Obtenir un objet particulier 
-router.get('/:id', stuffCtrl.getThing);
+router.get('/:id', auth, stuffCtrl.getThing);
 
 // Obtenir la liste des objets
-router.get('/', stuffCtrl.getAllThings);
+router.get('/', auth,  stuffCtrl.getAllThings);
 
 module.exports = router;
